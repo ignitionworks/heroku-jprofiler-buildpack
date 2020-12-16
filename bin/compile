@@ -14,8 +14,11 @@ jprofiler_archive_url="https://download-gcdn.ej-technologies.com/jprofiler/$jpro
 jprofiler_archive_download_dir="$cache_dir"
 jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_archive_filename"
 
-jprofiler_archive_agent_path="jprofiler12.0/bin/linux-x64/libjprofilerti.so"
-jprofiler_archive_agent_path_components=3
+jprofiler_archive_agent_library_path="jprofiler12.0/bin/linux-x64/libjprofilerti.so"
+jprofiler_archive_agent_library_path_components=3
+
+jprofiler_archive_agent_jar_path="bin/agent.jar"
+jprofiler_archive_agent_jar_path_components=1
 
 sha256sum_bin="/usr/bin/sha256sum"
 
@@ -43,10 +46,15 @@ else
   echo "Cached archive '$jprofiler_archive_download_path' has correct checksum, skipping download"
 fi
 
-echo "Extracting JProfiler's profiling agent shared libraries to application"
-# Extract shared libraries from jprofiler archive into root of build directory
+echo "Extracting JProfiler's profiling agent to application"
 tar --extract \
     --file="$jprofiler_archive_download_path" \
     --directory "$build_dir" \
-    --strip-components $jprofiler_archive_agent_path_components \
-    "$jprofiler_archive_agent_path"
+    --strip-components $jprofiler_archive_agent_library_path_components \
+    "$jprofiler_archive_agent_library_path"
+
+tar --extract \
+    --file="$jprofiler_archive_download_path" \
+    --directory "$build_dir" \
+    --strip-components $jprofiler_archive_agent_jar_path_components \
+    "$jprofiler_archive_agent_jar_path"
