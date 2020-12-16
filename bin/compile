@@ -17,12 +17,17 @@ jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_arch
 jprofiler_archive_shared_libraries_path="jprofiler12.0/bin/linux-x64/*.so"
 jprofiler_archive_shared_libraries_path_components=3
 
+sha256sum_bin="/usr/bin/sha256sum"
+
 # Generate expected checksum digest
 echo "$jprofiler_archive_sha256_sum  $jprofiler_archive_download_path" > checksum.sha
 
+# Check shasum256 installed
+$sha256sum_bin --version
+
 # Check cache
 set +e
-shasum256 --check checksum.sha
+$sha256sum_bin --check checksum.sha
 exit_value="$?"
 set -e
 
@@ -32,7 +37,7 @@ then
   wget --quiet \
        --directory-prefix "$jprofiler_archive_download_dir" \
        "$jprofiler_archive_url"
-  shasum256 --check checksum.sha
+  $sha256sum_bin --check checksum.sha
 else
   echo "Cache contains correct version of jprofiler, skipping download"
 fi
