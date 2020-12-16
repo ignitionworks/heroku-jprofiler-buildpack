@@ -14,7 +14,7 @@ $ heroku buildpacks:add https://github.com/ignitionworks/heroku-jprofiler-buildp
 Modify your JAVA_OPTS to include:
 
 ```
--agentpath:libjprofilerti.so=port=8849,nowait
+-agentpath:jprofiler/bin/linux-x64/libjprofilerti.so=port=8849,nowait
 ```
 
 See [JProfiler docs](https://www.ej-technologies.com/resources/jprofiler/help/doc/main/profiling.html) for more details.
