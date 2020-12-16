@@ -45,6 +45,7 @@ fi
 
 echo ""
 echo "Extracting JProfiler's profiling agent to application"
+mkdir -p "$jprofiler_destination_dir"
 tar --extract \
     --file="$jprofiler_archive_download_path" \
     --directory "$jprofiler_destination_dir" \
