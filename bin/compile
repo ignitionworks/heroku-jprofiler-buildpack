@@ -1,10 +1,15 @@
 #!/bin/bash
+# Exit if command fails
+set -e
+# Exit on unset variables
+set -u
 
 build_dir="$1"; shift
 cache_dir="$1"; shift
 env_dir="$1"; shift
 
 jprofiler_archive_filename="jprofiler_linux_12_0.tar.gz"
+jprofiler_archive_sha256_sum="26db0bed385b42cbdb1423c4261679c7a37f6da7fc0e29616fc01c6f1f86f732"
 jprofiler_archive_url="https://download-gcdn.ej-technologies.com/jprofiler/$jprofiler_archive_filename"
 jprofiler_archive_download_dir="$cache_dir"
 jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_archive_filename"
@@ -12,11 +17,24 @@ jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_arch
 jprofiler_archive_shared_libraries_path="jprofiler12.0/bin/linux-x64/*.so"
 jprofiler_archive_shared_libraries_path_components=3
 
-# Download to cache the jprofiler archive
-wget --quiet \
-     --timestamping \
-     --directory-prefix "$jprofiler_archive_download_dir" \
-     "$jprofiler_archive_url"
+# Generate expected checksum digest
+echo "$jprofiler_archive_sha256_sum  $jprofiler_archive_download_path" > checksum.sha
+
+# Check cache
+set +e
+shasum256 --check checksum.sha
+set -e
+
+if [ $? -ne 0 ]
+then
+  echo "Downloading jprofiler from $jprofiler_archive_download_dir"
+  wget --quiet \
+       --directory-prefix "$jprofiler_archive_download_dir" \
+       "$jprofiler_archive_url"
+  shasum256 --check checksum.sha
+else
+  echo "Cache contains correct version of jprofiler, skipping download"
+fi
 
 # Extract shared libraries from jprofiler archive into root of build directory
 tar --extract \
