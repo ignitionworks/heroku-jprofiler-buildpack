@@ -23,9 +23,10 @@ sha256sum_bin="/usr/bin/sha256sum"
 echo "$jprofiler_archive_sha256_sum  $jprofiler_archive_download_path" > checksum.sha
 
 # Check shasum256 installed
-$sha256sum_bin --version
+$sha256sum_bin --version > /dev/null
 
 # Check cache
+echo "Checking cache for valid download"
 set +e
 $sha256sum_bin --check checksum.sha
 exit_value="$?"
