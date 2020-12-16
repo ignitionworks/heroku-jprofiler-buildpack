@@ -34,15 +34,16 @@ set -e
 
 if [ $exit_value -ne 0 ]
 then
-  echo "Downloading jprofiler from $jprofiler_archive_download_dir"
+  echo "Downloading jprofiler from '$jprofiler_archive_url' to '$jprofiler_archive_download_path'"
   wget --quiet \
        --directory-prefix "$jprofiler_archive_download_dir" \
        "$jprofiler_archive_url"
   $sha256sum_bin --check checksum.sha
 else
-  echo "Cache contains correct version of jprofiler, skipping download"
+  echo "Cached archive '$jprofiler_archive_download_path' has correct checksum, skipping download"
 fi
 
+echo "Extracting JProfiler's profiling agent shared libraries to application"
 # Extract shared libraries from jprofiler archive into root of build directory
 tar --extract \
     --file="$jprofiler_archive_download_path" \
