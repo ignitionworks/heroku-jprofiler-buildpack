@@ -14,8 +14,8 @@ jprofiler_archive_url="https://download-gcdn.ej-technologies.com/jprofiler/$jpro
 jprofiler_archive_download_dir="$cache_dir"
 jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_archive_filename"
 
-jprofiler_archive_shared_libraries_path="jprofiler12.0/bin/linux-x64/*.so"
-jprofiler_archive_shared_libraries_path_components=3
+jprofiler_archive_agent_path="jprofiler12.0/bin/linux-x64/libjprofilerti.so"
+jprofiler_archive_agent_path_components=3
 
 sha256sum_bin="/usr/bin/sha256sum"
 
@@ -48,6 +48,5 @@ echo "Extracting JProfiler's profiling agent shared libraries to application"
 tar --extract \
     --file="$jprofiler_archive_download_path" \
     --directory "$build_dir" \
-    --strip-components $jprofiler_archive_shared_libraries_path_components \
-    --wildcards \
-    "$jprofiler_archive_shared_libraries_path"
+    --strip-components $jprofiler_archive_agent_path_components \
+    "$jprofiler_archive_agent_path"
