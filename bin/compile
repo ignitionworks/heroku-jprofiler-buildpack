@@ -23,9 +23,10 @@ echo "$jprofiler_archive_sha256_sum  $jprofiler_archive_download_path" > checksu
 # Check cache
 set +e
 shasum256 --check checksum.sha
+exit_value="$?"
 set -e
 
-if [ $? -ne 0 ]
+if [ $exit_value -ne 0 ]
 then
   echo "Downloading jprofiler from $jprofiler_archive_download_dir"
   wget --quiet \
