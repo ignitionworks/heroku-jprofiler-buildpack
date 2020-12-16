@@ -20,4 +20,5 @@ tar --extract \
     --file="$jprofiler_archive_download_path" \
     --directory "$build_dir" \
     --strip-components $jprofiler_archive_shared_libraries_path_components \
+    --wildcards \
     "$jprofiler_archive_shared_libraries_path"
