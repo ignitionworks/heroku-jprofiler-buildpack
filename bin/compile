@@ -13,7 +13,10 @@ jprofiler_archive_shared_libraries_path="jprofiler12.0/bin/linux-x64/*.so"
 jprofiler_archive_shared_libraries_path_components=3
 
 # Download to cache the jprofiler archive
-wget --timestamping --directory-prefix "$jprofiler_archive_download_dir" "$jprofiler_archive_url"
+wget --quiet \
+     --timestamping \
+     --directory-prefix "$jprofiler_archive_download_dir" \
+     "$jprofiler_archive_url"
 
 # Extract shared libraries from jprofiler archive into root of build directory
 tar --extract \
