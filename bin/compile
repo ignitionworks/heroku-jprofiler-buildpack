@@ -17,8 +17,8 @@ jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_arch
 jprofiler_archive_agent_library_path="jprofiler12.0/bin/linux-x64/libjprofilerti.so"
 jprofiler_archive_agent_library_path_components=3
 
-jprofiler_archive_agent_jar_path="bin/agent.jar"
-jprofiler_archive_agent_jar_path_components=1
+jprofiler_archive_agent_jar_path="jprofiler12.0/bin/agent.jar"
+jprofiler_archive_agent_jar_path_components=2
 
 sha256sum_bin="/usr/bin/sha256sum"
 
