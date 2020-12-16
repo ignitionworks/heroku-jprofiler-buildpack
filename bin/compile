@@ -1,0 +1,23 @@
+#!/bin/bash
+
+build_dir="$1"; shift
+cache_dir="$1"; shift
+env_dir="$1"; shift
+
+jprofiler_archive_filename="jprofiler_linux_12_0.tar.gz"
+jprofiler_archive_url="https://download-gcdn.ej-technologies.com/jprofiler/$jprofiler_archive_filename"
+jprofiler_archive_download_dir="$cache_dir}"
+jprofiler_archive_download_path="$jprofiler_archive_download_dir/$jprofiler_archive_filename"
+
+jprofiler_archive_shared_libraries_path="jprofiler12.0/bin/linux-x64/*.so"
+jprofiler_archive_shared_libraries_path_components=3
+
+# Download to cache the jprofiler archive
+wget --timestamping --directory-prefix "$jprofiler_archive_download_dir" "$jprofiler_archive_url"
+
+# Extract shared libraries from jprofiler archive into root of build directory
+tar --extract \
+    --file="$jprofiler_archive_download_path" \
+    --directory "$build_dir" \
+    --strip-components $jprofiler_archive_shared_libraries_path_components \
+    "$jprofiler_archive_shared_libraries_path"
