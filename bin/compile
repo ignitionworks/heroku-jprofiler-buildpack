@@ -35,6 +35,7 @@ $sha256sum_bin --check checksum.sha
 exit_value="$?"
 set -e
 
+echo ""
 if [ $exit_value -ne 0 ]
 then
   echo "Downloading jprofiler from '$jprofiler_archive_url' to '$jprofiler_archive_download_path'"
@@ -46,6 +47,7 @@ else
   echo "Cached archive '$jprofiler_archive_download_path' has correct checksum, skipping download"
 fi
 
+echo ""
 echo "Extracting JProfiler's profiling agent to application"
 tar --extract \
     --file="$jprofiler_archive_download_path" \
